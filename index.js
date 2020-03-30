@@ -1,13 +1,14 @@
 const http = require('http');
+const request = require('request');
 const express = require('express');
 const cloudscraper = require('cloudscraper');
 app = express();
 
 app.get('/', (req, res, err) => {
-    let response = cloudscraper.get('www.wikipedia.org')
-    .then(res => {
+    cloudscraper.get('https://www.wikipedia.org')
+    .then(response => {
         res.set(200).json({
-            message: 'this should work with Heroku'
+            message: response
         });
     });
 });
