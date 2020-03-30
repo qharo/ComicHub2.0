@@ -4,7 +4,7 @@ app = express();
 
 app.get('/', (req, res, err) => {
     res.set(200).json({
-        message: 'this is working'
+        message: 'this should work with Heroku'
     })
 });
 
