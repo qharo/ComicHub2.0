@@ -11,7 +11,7 @@ function getSpecificComic(url) {
         comic = helper['stringDivide'](title);
         comic['date'] = helper['getComicDateConverter'](date);
         comic['downloadLink'] = $('div.aio-pulse > a').attr().href;
-        return res;
+        return comic;
     }, err => {
         console.log("There is an error");
     });
