@@ -2,7 +2,9 @@ const express = require('express');
 const search = require('./routes/searchRoute');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://qharo:qharo1@comichub-gxa1c.mongodb.net/test?retryWrites=true&w=majority', {
+process.env.MONGODB_URI
+
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })

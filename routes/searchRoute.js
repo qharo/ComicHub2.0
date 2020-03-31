@@ -7,56 +7,56 @@ const mongoose = require('mongoose');
 
 router.get('/:name/:issue/:year', (req, res, next) => {
     
-    specificSearch(req.params)
-    .then(response => {
-        res.send(response);
-        console.log("Just the basics");
-    })
-    .catch(err => {
-        res.send(err);
-        console.log(err);
-    });
-
-    // Comic.find({'name': req.params.name, 'issue': parseInt(req.params.issue), 'year': parseInt(req.params.year)}).exec()
-    // .then(doc => {
-    //     console.log('Request went through without errors.');
-    //     if(doc.length > 0){
-    //         res.send(doc);
-    //         console.log('Successfully found in server!')
-    //     }
-    //     else{
-    //         console.log('Not found in server.');
-    //         specificSearch(req.params)
-    //         .then(value => {
-    //             res.send(value);
-    //             console.log('Comic found!');
-    //             value._id = mongoose.Types.ObjectId();
-    //             let comic = new Comic(value);
-    //             comic.save().then(result => {
-    //                 console.log('Saved in MongoDB server!');
-    //                 Comic.find().exec()
-    //                 .then(output => {
-    //                     console.log("Current server directory is: ");
-    //                     console.log(output);
-    //                 })
-    //                 .catch(err => {
-    //                     console.log("Error occured in saving to directory");
-    //                     console.log(err);
-    //                 })
-    //             })
-    //         })
-    //         .catch(err => {
-    //             console.log('Error in scraping comci');
-    //             res.send({
-    //                 message: err
-    //             });
-    //         });
-    //     }
+    // specificSearch(req.params)
+    // .then(response => {
+    //     res.send(response);
+    //     console.log("Just the basics");
     // })
     // .catch(err => {
     //     res.send(err);
-    //     console.log('There was an error.');
+    //     console.log(err);
     // });
+
+    Comic.find({'name': req.params.name, 'issue': parseInt(req.params.issue), 'year': parseInt(req.params.year)}).exec()
+    .then(doc => {
+        console.log('Request went through without errors.');
+        if(doc.length > 0){
+            res.send(doc);
+            console.log('Successfully found in server!')
+        }
+        else{
+            console.log('Not found in server.');
+            specificSearch(req.params)
+            .then(value => {
+                res.send(value);
+                console.log('Comic found!');
+                value._id = mongoose.Types.ObjectId();
+                let comic = new Comic(value);
+                comic.save().then(result => {
+                    console.log('Saved in MongoDB server!');
+                    Comic.find().exec()
+                    .then(output => {
+                        console.log("Current server directory is: ");
+                        console.log(output);
+                    })
+                    .catch(err => {
+                        console.log("Error occured in saving to directory");
+                        console.log(err);
+                    })
+                })
+            })
+            .catch(err => {
+                console.log('Error in scraping comci');
+                res.send({
+                    message: err
+                });
+            });
+        }
+    })
+    .catch(err => {
+        res.send(err);
+        console.log('There was an error.');
+    });
 
 });
 
