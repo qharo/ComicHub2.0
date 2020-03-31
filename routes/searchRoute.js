@@ -28,10 +28,10 @@ router.get('/:name/:issue/:year', (req, res, next) => {
             console.log('Not found in server.');
             specificSearch(req.params)
             .then(value => {
-                res.send(value);
                 console.log('Comic found!');
                 value._id = mongoose.Types.ObjectId();
                 let comic = new Comic(value);
+                res.send(comic);
                 comic.save().then(result => {
                     console.log('Saved in MongoDB server!');
                     Comic.find().exec()
