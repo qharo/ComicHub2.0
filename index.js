@@ -1,16 +1,14 @@
-const http = require('http');
-const request = require('request');
 const express = require('express');
-const cloudscraper = require('cloudscraper');
+const search = require('./routes/searchRoute');
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb+srv://qharo:qharo1@comichub-gxa1c.mongodb.net/test?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+
 app = express();
 
-app.get('/', (req, res, err) => {
-    cloudscraper.get('https://www.wikipedia.org')
-    .then(response => {
-        res.set(200).json({
-            message: response
-        });
-    });
-});
+app.use('/search', search);
 
 module.exports = app;
